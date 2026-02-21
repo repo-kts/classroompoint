@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import AdmissionModal from './AdmissionModal';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../context/useTheme';
 
 // Import logo if it exists - you can uncomment and adjust the path when you add your logo
 import logo from '../assets/Logo.png';

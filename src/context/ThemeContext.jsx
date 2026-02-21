@@ -1,18 +1,14 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-
-const ThemeContext = createContext();
+import { useEffect, useState } from 'react';
+import { ThemeContext } from './themeContext';
 
 export const ThemeProvider = ({ children }) => {
     const [theme, setTheme] = useState(() => {
-        // Check localStorage or system preference
+        // Always default to light mode, only use saved preference if available
         if (typeof window !== 'undefined') {
             const savedTheme = localStorage.getItem('theme');
             // Validate saved theme to ensure it's a valid value
             if (savedTheme === 'dark' || savedTheme === 'light') {
                 return savedTheme;
-            }
-            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                return 'dark';
             }
         }
         return 'light';
@@ -44,12 +40,4 @@ export const ThemeProvider = ({ children }) => {
             {children}
         </ThemeContext.Provider>
     );
-};
-
-export const useTheme = () => {
-    const context = useContext(ThemeContext);
-    if (context === undefined) {
-        throw new Error('useTheme must be used within a ThemeProvider');
-    }
-    return context;
 };
